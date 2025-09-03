@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phone Number Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async src="https://cse.google.com/cse.js?cx=YOUR_CSE_ID_HERE"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 10px; }
+    .gcse-search { margin-bottom: 20px; }
+    .highlight { background: yellow; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Search & Find Phone Numbers</h2>
+  <div class="gcse-search"></div>
+
+  <script>
+    // Highlight phone numbers in results (basic regex)
+    const phoneRegex = /(\+1\s?)?(\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]?\d{4}/g;
+
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll(".gsc-webResult").forEach(result => {
+        result.innerHTML = result.innerHTML.replace(phoneRegex, match => {
+          return `<span class="highlight">${match}</span>`;
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
+</body>
+</html>
